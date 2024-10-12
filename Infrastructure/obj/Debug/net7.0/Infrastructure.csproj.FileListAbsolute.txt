@@ -1,0 +1,17 @@
+D:\CsLearnWeb\WebApI\Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.AssemblyReference.cache
+D:\CsLearnWeb\WebApI\Infrastructure\obj\Debug\net7.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\CsLearnWeb\WebApI\Infrastructure\obj\Debug\net7.0\Infrastructure.AssemblyInfoInputs.cache
+D:\CsLearnWeb\WebApI\Infrastructure\obj\Debug\net7.0\Infrastructure.AssemblyInfo.cs
+D:\CsLearnWeb\WebApI\Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.CoreCompileInputs.cache
+D:\CsLearnWeb\WebApI\Infrastructure\bin\Debug\net7.0\Infrastructure.deps.json
+D:\CsLearnWeb\WebApI\Infrastructure\bin\Debug\net7.0\Infrastructure.runtimeconfig.json
+D:\CsLearnWeb\WebApI\Infrastructure\bin\Debug\net7.0\Infrastructure.dll
+D:\CsLearnWeb\WebApI\Infrastructure\bin\Debug\net7.0\Infrastructure.pdb
+D:\CsLearnWeb\WebApI\Infrastructure\bin\Debug\net7.0\ApplicationCore.dll
+D:\CsLearnWeb\WebApI\Infrastructure\bin\Debug\net7.0\ApplicationCore.pdb
+D:\CsLearnWeb\WebApI\Infrastructure\obj\Debug\net7.0\Infrastructure.csproj.CopyComplete
+D:\CsLearnWeb\WebApI\Infrastructure\obj\Debug\net7.0\Infrastructure.dll
+D:\CsLearnWeb\WebApI\Infrastructure\obj\Debug\net7.0\refint\Infrastructure.dll
+D:\CsLearnWeb\WebApI\Infrastructure\obj\Debug\net7.0\Infrastructure.pdb
+D:\CsLearnWeb\WebApI\Infrastructure\obj\Debug\net7.0\Infrastructure.genruntimeconfig.cache
+D:\CsLearnWeb\WebApI\Infrastructure\obj\Debug\net7.0\ref\Infrastructure.dll
