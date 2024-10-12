@@ -60,6 +60,23 @@ namespace ApplicationCore.Services
             }
         }
 
+
+        public IArticle Article
+        {
+            get
+            {
+                object service;
+
+                PrivateServices.TryGetValue(typeof(ICategories), out service);
+                if (service == null)
+                {
+                    service = new ArticleService(uow, mapper, serviceException);
+                    PrivateServices.Add(typeof(CategoryServices), service);
+                }
+
+                return (ArticleService)service;
+            }
+        }
         //public async ValueTask DisposeAsync()
         //{
         //    await uow.DisposeAsync();

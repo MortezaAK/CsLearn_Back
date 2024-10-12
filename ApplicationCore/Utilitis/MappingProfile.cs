@@ -15,6 +15,8 @@ namespace ApplicationCore.Utilitis
         { 
             CreateMap<Categories , CategoryDTO>();
             CreateMap<CategoryDTO, Categories>();
+            CreateMap<ArticleDTO, Articles>();
+            CreateMap<Articles, ArticleDTO>();
         }
     }
 }

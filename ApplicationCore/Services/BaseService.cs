@@ -13,6 +13,7 @@ namespace ApplicationCore.Services
     {
         protected readonly IUnitOfWork uow;
         protected readonly IMapper mapper;
+       
 
         protected BaseServiceExceptionDTO serviceException;
 
@@ -26,7 +27,7 @@ namespace ApplicationCore.Services
             mapper = _mapper;
             this.serviceException = serviceException;
         }
-
+        
         //000000
         protected T NotOKResponse<T>(T result, string errorCode, string errorMessage, bool status = false)
         {

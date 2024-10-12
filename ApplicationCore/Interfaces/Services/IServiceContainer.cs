@@ -15,5 +15,6 @@ namespace ApplicationCore.Interfaces.Services
         string Message { get; }
 
         ICategories Category { get; }
+        IArticle Article { get; }
     }
 }

@@ -14,5 +14,8 @@ namespace ApplicationCore.Interfaces.DataAccess
         Task<bool> AddAsync(TEntity entity);
         Task<bool> UpdateAsync(TEntity entity);
         Task<bool> DeleteAsync(long id);
+        Task<IEnumerable<TEntity>> FindAsync(Func<TEntity, bool> predicate);
+        Task<bool> DeleteRangeAsync(IEnumerable<TEntity> entities);
+        Task<bool> AddRangeAsync(IEnumerable<TEntity> entities);
     }
 }

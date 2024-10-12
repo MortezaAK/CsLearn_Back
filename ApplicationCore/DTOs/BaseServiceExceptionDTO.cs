@@ -13,5 +13,10 @@ namespace ApplicationCore.DTOs
         public string Code { get; set; }
 
         public string Message { get; set; }
+
+        internal void HandleException(Exception ex)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
