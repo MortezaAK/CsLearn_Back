@@ -17,6 +17,7 @@ namespace ApplicationCore.Models
 
 
         public ICollection<ArticlesPermission> ArticlesPermissions { get; set; }
+        public ICollection<BooksPermissions> BooksPermissions { get; set; }
     }
 }
 

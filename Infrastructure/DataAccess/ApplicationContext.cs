@@ -22,6 +22,9 @@ namespace Infrastructure.DataAccess
         public DbSet<ArticlesPermission> ArticlesPermissions { get; set; }
         public DbSet<Keyword> Keywords { get; set; }
         public DbSet<ArticleKeyword> ArticleKeywords { get; set; }
+        public DbSet<Books> Books { get; set; }
+        public DbSet<BookKeywords> BookKeywords { get; set; }
+        public DbSet<BooksPermissions> BooksPermissions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //ArticlesPermission
@@ -52,10 +55,47 @@ namespace Infrastructure.DataAccess
                 .WithMany(k => k.ArticleKeywords)
                 .HasForeignKey(ak => ak.KeywordId);
 
+
+            //BooksPermission
+            modelBuilder.Entity<BooksPermissions>()
+                .HasKey(bp=>bp.Id);
+
+            modelBuilder.Entity<BooksPermissions>()
+                .HasOne(bp=>bp.Books)
+                .WithMany(bp=>bp.BooksPermissions)
+                .HasForeignKey(bp=>bp.BookId);
+
+            modelBuilder.Entity<BooksPermissions>()
+                .HasOne(bp => bp.Category)
+                .WithMany(c => c.BooksPermissions)
+                .HasForeignKey(bp => bp.CategoriesId);
+
+            //BooksKeywords
+            modelBuilder.Entity<BookKeywords>()
+                .HasKey(ak => new { ak.BookId, ak.KeywordId });
+
+            modelBuilder.Entity<BookKeywords>()
+                .HasOne(ak => ak.Books)
+                .WithMany(a => a.BooksKeywords)
+                .HasForeignKey(ak => ak.BookId);
+
+            modelBuilder.Entity<BookKeywords>()
+                .HasOne(ak => ak.Keyword)
+                .WithMany(k => k.BooksKeywords)
+                .HasForeignKey(ak => ak.KeywordId);
+
+
+
+
+
             //SubTitle
-           modelBuilder.Entity<Articles>()
+            modelBuilder.Entity<Articles>()
             .Property<string>("SubTitle")
-            .HasComputedColumnSql("CONVERT(nvarchar(max), [Title]) + ' - ' + CONVERT(nvarchar(max), [RegDate], 120)");
+            .HasComputedColumnSql("CONVERT(nvarchar(max), [Title]) + ' - ' + CONVERT(nvarchar(max), [Description])");
+
+            modelBuilder.Entity<Books>()
+            .Property<string>("SubTitle")
+            .HasComputedColumnSql("CONVERT(nvarchar(max), [Title]) + ' - ' +CONVERT(nvarchar(max), [ShortDescription]) ");
 
         }
     }

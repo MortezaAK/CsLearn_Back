@@ -14,5 +14,6 @@ namespace ApplicationCore.Models
         public string KeywordText { get; set; }
 
         public ICollection<ArticleKeyword> ArticleKeywords { get; set; }
+        public ICollection<BookKeywords> BooksKeywords { get; set; }
     }
 }
