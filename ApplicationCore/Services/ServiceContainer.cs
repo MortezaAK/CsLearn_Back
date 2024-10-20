@@ -67,11 +67,11 @@ namespace ApplicationCore.Services
             {
                 object service;
 
-                PrivateServices.TryGetValue(typeof(ICategories), out service);
+                PrivateServices.TryGetValue(typeof(IArticle), out service);
                 if (service == null)
                 {
                     service = new ArticleService(uow, mapper, serviceException);
-                    PrivateServices.Add(typeof(CategoryServices), service);
+                    PrivateServices.Add(typeof(IArticle), service);
                 }
 
                 return (ArticleService)service;

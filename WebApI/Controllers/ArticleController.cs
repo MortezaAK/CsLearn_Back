@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.DTOs;
 using ApplicationCore.Interfaces.Services;
 using ApplicationCore.Models;
+using AutoMapper;
 using Infrastructure.DataAccess;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,7 @@ namespace WebApI.Controllers
         public async Task<IActionResult> EditArticle(long id, [FromBody] ArticleDTO articles)
         {
             var articleId = await serviceContainer.Article.GetArticleById(id);
+          
             if (articleId == null)
                 return NotFound();
             var result = await serviceContainer.Article.UpdateArticleAsync(articles);

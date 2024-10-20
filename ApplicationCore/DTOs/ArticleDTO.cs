@@ -8,14 +8,15 @@ namespace ApplicationCore.DTOs
 {
     public class ArticleDTO
     {
-      
-            public string Title { get; set; }
-            public string Description { get; set; }
-            public DateTime RegDate { get; set; }
-            public string posterImage { get; set; }
-            public List<long> CategoryIds { get; set; }
-            public List<long> KeywordIds { get; set; }
-        
-
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public DateTime RegDate { get; set; }
+        public string PosterImage { get; set; }
+        public List<long> CategoryIds { get; set; }
+        public List<long> KeywordIds { get; set; }
+        public int IsDelete { get; set; }
+        public int LikeCount { get; set; }
+        public int ViewCount { get; set; }
     }
+
 }

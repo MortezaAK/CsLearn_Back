@@ -4196,24 +4196,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rasa pc\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\EMDAD  LAPTOP\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rasa pc\\Desktop\\CsLearn_Back\\WebApI\\WebApI.csproj",
+      "projectUniqueName": "D:\\CsLearnWeb\\WebApI\\WebApI.csproj",
       "projectName": "WebApI",
-      "projectPath": "C:\\Users\\rasa pc\\Desktop\\CsLearn_Back\\WebApI\\WebApI.csproj",
-      "packagesPath": "C:\\Users\\rasa pc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rasa pc\\Desktop\\CsLearn_Back\\WebApI\\obj\\",
+      "projectPath": "D:\\CsLearnWeb\\WebApI\\WebApI.csproj",
+      "packagesPath": "C:\\Users\\EMDAD  LAPTOP\\.nuget\\packages\\",
+      "outputPath": "D:\\CsLearnWeb\\WebApI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\rasa pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\EMDAD  LAPTOP\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4228,11 +4227,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\rasa pc\\Desktop\\CsLearn_Back\\ApplicationCore\\ApplicationCore.csproj": {
-              "projectPath": "C:\\Users\\rasa pc\\Desktop\\CsLearn_Back\\ApplicationCore\\ApplicationCore.csproj"
+            "D:\\CsLearnWeb\\ApplicationCore\\ApplicationCore.csproj": {
+              "projectPath": "D:\\CsLearnWeb\\ApplicationCore\\ApplicationCore.csproj"
             },
-            "C:\\Users\\rasa pc\\Desktop\\CsLearn_Back\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\rasa pc\\Desktop\\CsLearn_Back\\Infrastructure\\Infrastructure.csproj"
+            "D:\\CsLearnWeb\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "D:\\CsLearnWeb\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -4241,11 +4240,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -4302,24 +4296,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[7.0.18, 7.0.18]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[7.0.18, 7.0.18]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[7.0.18, 7.0.18]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[7.0.18, 7.0.18]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -4328,7 +4304,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   },

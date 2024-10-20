@@ -8,7 +8,11 @@ namespace ApplicationCore.DTOs
 {
     public class GetArticleBYKeywordDTO
     {
-        public IEnumerable<ArticlesDTO> GetAllArticle { get; set; }
-        public IEnumerable<KeywordDTO> GetAllKeyWords { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public DateTime RegDate { get; set; }
+        public string posterImage { get; set; }
+        public int ViewCount { get; set; }
+        public int LikeCount { get; set; }
     }
 }

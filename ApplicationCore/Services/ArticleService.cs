@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
 {
-    public class ArticleService : BaseService,IArticle
+    public class ArticleService : BaseService, IArticle
     {
         public ArticleService(IUnitOfWork _uow, IMapper _mapper, BaseServiceExceptionDTO serviceException) : base(_uow, _mapper, serviceException)
         {
@@ -87,7 +87,7 @@ namespace ApplicationCore.Services
             }
             catch (Exception ex)
             {
-                
+
                 serviceException.HandleException(ex);
                 return NotOKResponse(false, "AddArticleError", "خطایی در اضافه کردن مقاله رخ داد.");
             }
@@ -127,21 +127,70 @@ namespace ApplicationCore.Services
             return await uow.GetArticleBYKeywordID(id);
         }
         // بروزرسانی مقاله ها
+        //Error dare bayad hal besh - Akbari(hal mikonm)
         public async Task<bool> UpdateArticleAsync(ArticleDTO articlesDTO)
         {
             try
             {
-                var result = await uow.Repository<ArticleDTO>().UpdateAsync(articlesDTO);
-                return result;
-            }
-            catch (Exception)
-            {
+                // بررسی اینکه تمام CategoryIds در دیتابیس وجود داشته باشند
+                var existingCategories = await uow.Repository<Categories>()
+                    .FindAsync(c => articlesDTO.CategoryIds.Contains(c.Id));
 
-                throw;
+                if (existingCategories.Count() != articlesDTO.CategoryIds.Count)
+                {
+                    return NotOKResponse(false, "CategoryNotFound", "برخی از دسته‌بندی‌ها وجود ندارند.");
+                }
+
+                // بررسی اینکه تمام KeywordIds در دیتابیس وجود داشته باشند
+                var existingKeywords = await uow.Repository<Keyword>()
+                    .FindAsync(k => articlesDTO.KeywordIds.Contains(k.Id));
+
+                if (existingKeywords.Count() != articlesDTO.KeywordIds.Count)
+                {
+                    return NotOKResponse(false, "KeywordNotFound", "برخی از کلمات کلیدی وجود ندارند.");
+                }
+
+                // نقشه‌برداری از ArticleDTO به Articles
+                var newArticle = mapper.Map<Articles>(articlesDTO);
+                var result = await uow.Repository<Articles>().UpdateAsync(newArticle);
+
+                // ایجاد ارتباط بین مقاله و دسته‌بندی‌ها (ArticlePermissions)
+                var articlePermissions = existingCategories.Select(category => new ArticlesPermission
+                {
+                    ArticlesId = newArticle.Id,
+                    CategoriesId = category.Id
+                }).ToList();
+
+                foreach (var articlePermission in articlePermissions)
+                {
+                    await uow.Repository<ArticlesPermission>().AddAsync(articlePermission);
+                }
+
+                // ایجاد ارتباط بین مقاله و کلمات کلیدی
+                var articleKeywords = existingKeywords.Select(keyword => new ArticleKeyword
+                {
+                    ArticleId = newArticle.Id,
+                    KeywordId = keyword.Id
+                }).ToList();
+
+                foreach (var articleKeyword in articleKeywords)
+                {
+                    await uow.Repository<ArticleKeyword>().AddAsync(articleKeyword);
+                }
+
+                // ذخیره تغییرات نهایی در دیتابیس
+                await uow.Save();
+                return OKResponse(true, "Success", "مقاله با موفقیت به‌روزرسانی شد.");
+            }
+            catch (Exception ex)
+            {
+                // لاگ خطا برای خطایابی بهتر
+                // Log the exception here using your logging framework
+                return NotOKResponse(false, "Error", "خطا در هنگام به‌روزرسانی مقاله رخ داد.");
             }
         }
-    }
 
+    }
 
 }
 

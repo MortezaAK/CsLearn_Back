@@ -26,68 +26,36 @@ namespace Infrastructure.DataAccess
         //کوئری براساس نمایش مقاله ها براساس CategoryID
         public async Task<IEnumerable<GetArticleBYCategoryDTO>> GetArticleBYCategoryID(long id)
         {
-            var cat = (from ap in db.ArticlesPermissions
-                       join a in db.Articles on ap.ArticlesId equals a.Id
-                       join c in db.Categories on ap.CategoriesId equals c.Id
-                       where c.Id == id
-                       select new CategoryDTO
-                       {
-                           GroupId = c.GroupId,
-                           isDelete = c.isDelete,
-                           Name = c.Name,
-                       }).ToList();
-            var ar = (from ap in db.ArticlesPermissions
-                          join a in db.Articles on ap.ArticlesId equals a.Id
-                          join c in db.Categories on ap.CategoriesId equals c.Id
-                          where c.Id == id
-                      select new ArticlesDTO
-                      {
-                          Description = a.Description,
-                          posterImage = a.posterImage,
-                          RegDate = a.RegDate,
-                          Title = a.Title,
-                      }).ToList();
-            var result = (from ap in db.ArticlesPermissions
-                          join a in db.Articles on ap.ArticlesId equals a.Id
-                          join c in db.Categories on ap.CategoriesId equals c.Id
-                          where c.Id == id
+            var result = (from article in db.Articles
+                          join acper in db.ArticlesPermissions on article.Id equals acper.ArticlesId
+                          join cat in db.Categories on acper.CategoriesId equals cat.Id
+                          where cat.Id == id
                           select new GetArticleBYCategoryDTO
                           {
-                              GetAllArticle = ar,
-                              GetAllCategory = cat
+                              Title = article.Title,
+                              Description = article.Description,
+                              LikeCount = article.LikeCount,
+                              ViewCount = article.ViewCount,
+                              posterImage = article.posterImage,
+                              RegDate = article.RegDate,
                           }).ToList();
             return result;
         }
         //کوئری براساس KeywordID نمایش مقاله ها
         public async Task<IEnumerable<GetArticleBYKeywordDTO>> GetArticleBYKeywordID(long id)
         {
-            var ar = (from ak in db.ArticleKeywords
-                      join a in db.Articles on ak.ArticleId equals a.Id
-                      join k in db.Keywords on ak.KeywordId equals k.Id
-                      where k.Id == id
-                      select new ArticlesDTO
-                      {
-                          Description = a.Description,
-                          posterImage = a.posterImage,
-                          RegDate = a.RegDate,
-                          Title = a.Title,
-                      }).ToList();
-            var key = (from ak in db.ArticleKeywords
-                       join a in db.Articles on ak.ArticleId equals a.Id
-                       join k in db.Keywords on ak.KeywordId equals k.Id
-                       where k.Id == id
-                       select new KeywordDTO
-                       {
-                           KeywordText = k.KeywordText
-                       }).ToList();
-            var result = (from ak in db.ArticleKeywords
-                          join a in db.Articles on ak.ArticleId equals a.Id
-                          join k in db.Keywords on ak.KeywordId equals k.Id
-                          where k.Id == id
+            var result = (from article in db.Articles
+                          join Ak in db.ArticleKeywords on article.Id equals Ak.ArticleId
+                          join Key in db.Keywords on Ak.KeywordId equals Key.Id
+                          where Key.Id == id
                           select new GetArticleBYKeywordDTO
                           {
-                              GetAllArticle = ar,
-                              GetAllKeyWords = key
+                              Title = article.Title,
+                              Description = article.Description,
+                              LikeCount = article.LikeCount,
+                              ViewCount = article.ViewCount,
+                              posterImage = article.posterImage,
+                              RegDate = article.RegDate,
                           }).ToList();
             return result;
         }
