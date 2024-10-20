@@ -10,3 +10,16 @@ D:\CsLearnWeb\WebApI\ApplicationCore\obj\Debug\net7.0\ApplicationCore.dll
 D:\CsLearnWeb\WebApI\ApplicationCore\obj\Debug\net7.0\refint\ApplicationCore.dll
 D:\CsLearnWeb\WebApI\ApplicationCore\obj\Debug\net7.0\ApplicationCore.pdb
 D:\CsLearnWeb\WebApI\ApplicationCore\obj\Debug\net7.0\ref\ApplicationCore.dll
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\bin\Debug\net7.0\ApplicationCore.deps.json
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\bin\Debug\net7.0\ApplicationCore.dll
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\bin\Debug\net7.0\ApplicationCore.pdb
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\obj\Debug\net7.0\ApplicationCore.csproj.AssemblyReference.cache
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\obj\Debug\net7.0\ApplicationCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\obj\Debug\net7.0\ApplicationCore.AssemblyInfoInputs.cache
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\obj\Debug\net7.0\ApplicationCore.AssemblyInfo.cs
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\obj\Debug\net7.0\ApplicationCore.csproj.CoreCompileInputs.cache
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\obj\Debug\net7.0\ApplicationCore.sourcelink.json
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\obj\Debug\net7.0\ApplicationCore.dll
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\obj\Debug\net7.0\refint\ApplicationCore.dll
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\obj\Debug\net7.0\ApplicationCore.pdb
+C:\Users\rasa pc\Desktop\CsLearn_Back\ApplicationCore\obj\Debug\net7.0\ref\ApplicationCore.dll

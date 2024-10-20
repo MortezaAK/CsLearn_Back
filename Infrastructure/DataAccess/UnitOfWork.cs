@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Interfaces.DataAccess;
+﻿using ApplicationCore.DTOs;
+using ApplicationCore.Interfaces.DataAccess;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -21,6 +22,74 @@ namespace Infrastructure.DataAccess
             _mapper = mapper;
             _accessor = accessor;
             PrivateRepository = new Dictionary<Type, object>();
+        }
+        //کوئری براساس نمایش مقاله ها براساس CategoryID
+        public async Task<IEnumerable<GetArticleBYCategoryDTO>> GetArticleBYCategoryID(long id)
+        {
+            var cat = (from ap in db.ArticlesPermissions
+                       join a in db.Articles on ap.ArticlesId equals a.Id
+                       join c in db.Categories on ap.CategoriesId equals c.Id
+                       where c.Id == id
+                       select new CategoryDTO
+                       {
+                           GroupId = c.GroupId,
+                           isDelete = c.isDelete,
+                           Name = c.Name,
+                       }).ToList();
+            var ar = (from ap in db.ArticlesPermissions
+                          join a in db.Articles on ap.ArticlesId equals a.Id
+                          join c in db.Categories on ap.CategoriesId equals c.Id
+                          where c.Id == id
+                      select new ArticlesDTO
+                      {
+                          Description = a.Description,
+                          posterImage = a.posterImage,
+                          RegDate = a.RegDate,
+                          Title = a.Title,
+                      }).ToList();
+            var result = (from ap in db.ArticlesPermissions
+                          join a in db.Articles on ap.ArticlesId equals a.Id
+                          join c in db.Categories on ap.CategoriesId equals c.Id
+                          where c.Id == id
+                          select new GetArticleBYCategoryDTO
+                          {
+                              GetAllArticle = ar,
+                              GetAllCategory = cat
+                          }).ToList();
+            return result;
+        }
+        //کوئری براساس KeywordID نمایش مقاله ها
+        public async Task<IEnumerable<GetArticleBYKeywordDTO>> GetArticleBYKeywordID(long id)
+        {
+            var ar = (from ak in db.ArticleKeywords
+                      join a in db.Articles on ak.ArticleId equals a.Id
+                      join k in db.Keywords on ak.KeywordId equals k.Id
+                      where k.Id == id
+                      select new ArticlesDTO
+                      {
+                          Description = a.Description,
+                          posterImage = a.posterImage,
+                          RegDate = a.RegDate,
+                          Title = a.Title,
+                      }).ToList();
+            var key = (from ak in db.ArticleKeywords
+                       join a in db.Articles on ak.ArticleId equals a.Id
+                       join k in db.Keywords on ak.KeywordId equals k.Id
+                       where k.Id == id
+                       select new KeywordDTO
+                       {
+                           KeywordText = k.KeywordText
+                       }).ToList();
+            var result = (from ak in db.ArticleKeywords
+                          join a in db.Articles on ak.ArticleId equals a.Id
+                          join k in db.Keywords on ak.KeywordId equals k.Id
+                          where k.Id == id
+                          select new GetArticleBYKeywordDTO
+                          {
+                              GetAllArticle = ar,
+                              GetAllKeyWords = key
+                          }).ToList();
+            return result;
         }
 
         //public async ValueTask DisposeAsync()

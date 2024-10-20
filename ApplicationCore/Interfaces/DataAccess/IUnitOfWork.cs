@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Models;
+﻿using ApplicationCore.DTOs;
+using ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace ApplicationCore.Interfaces.DataAccess
        
         IRepository<TEntity> Repository<TEntity>() where TEntity : class;
         Task<bool> Save();
+        Task<IEnumerable<GetArticleBYCategoryDTO>> GetArticleBYCategoryID(long id);
+        Task<IEnumerable<GetArticleBYKeywordDTO>> GetArticleBYKeywordID(long id);
     }
 }

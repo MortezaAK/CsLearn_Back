@@ -92,6 +92,54 @@ namespace ApplicationCore.Services
                 return NotOKResponse(false, "AddArticleError", "خطایی در اضافه کردن مقاله رخ داد.");
             }
         }
+        //پاک کردن مقاله ها بر اساس id
+        public async Task<bool> DeleteArticle(long articleId)
+        {
+            try
+            {
+                var article = await uow.Repository<Articles>().DeleteAsync(articleId);
+                return article;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        //نمایش تمامی مقاله ها
+        public async Task<IEnumerable<Articles>> GetAllArticle()
+        {
+            return await uow.Repository<Articles>().GetAllAsync();
+        }
+        //نمایش مقاله ها براساس CategoryID
+        public async Task<IEnumerable<GetArticleBYCategoryDTO>> GetArticleBYCategoryID(long id)
+        {
+            return await uow.GetArticleBYCategoryID(id);
+        }
+        //نمایش مقاله ها براساس id
+        public async Task<Articles> GetArticleById(long id)
+        {
+            return await uow.Repository<Articles>().GetByIdAsync(id);
+        }
+        //نمایش مقاله ها براساس KeywordID
+        public async Task<IEnumerable<GetArticleBYKeywordDTO>> GetArticleBYKeywordID(long id)
+        {
+            return await uow.GetArticleBYKeywordID(id);
+        }
+        // بروزرسانی مقاله ها
+        public async Task<bool> UpdateArticleAsync(ArticleDTO articlesDTO)
+        {
+            try
+            {
+                var result = await uow.Repository<ArticleDTO>().UpdateAsync(articlesDTO);
+                return result;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 
 
