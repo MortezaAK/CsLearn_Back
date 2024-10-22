@@ -24,18 +24,23 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("ApplicationCore.Models.ArticleKeyword", b =>
                 {
-                    b.Property<long>("ArticleId")
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<long>("KeywordId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ID"));
+
+                    b.Property<long>("ArticlesId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("id")
+                    b.Property<long>("KeywordsId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("ArticleId", "KeywordId");
+                    b.HasKey("ID");
 
-                    b.HasIndex("KeywordId");
+                    b.HasIndex("ArticlesId");
+
+                    b.HasIndex("KeywordsId");
 
                     b.ToTable("ArticleKeywords");
                 });
@@ -236,13 +241,13 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("ApplicationCore.Models.Articles", "Article")
                         .WithMany("ArticleKeywords")
-                        .HasForeignKey("ArticleId")
+                        .HasForeignKey("ArticlesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ApplicationCore.Models.Keyword", "Keyword")
                         .WithMany("ArticleKeywords")
-                        .HasForeignKey("KeywordId")
+                        .HasForeignKey("KeywordsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

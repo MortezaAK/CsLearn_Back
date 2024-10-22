@@ -42,7 +42,7 @@ namespace WebApI.Controllers
           
             if (articleId == null)
                 return NotFound();
-            var result = await serviceContainer.Article.UpdateArticleAsync(articles);
+            var result = await serviceContainer.Article.UpdateArticleAsync(articles, id);
             return Ok(result);
         }
         [HttpGet("id")]

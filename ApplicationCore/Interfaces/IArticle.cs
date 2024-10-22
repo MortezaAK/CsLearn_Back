@@ -12,7 +12,7 @@ namespace ApplicationCore.Interfaces
     {
         Task<IEnumerable<Articles>> GetAllArticle();
         Task<bool> AddArticleAsync(ArticleDTO articleDto);
-        Task<bool> UpdateArticleAsync(ArticleDTO articlesDTO);
+        Task<bool> UpdateArticleAsync(ArticleDTO articlesDTO, long articleID);
         Task<Articles> GetArticleById(long id);
         Task<bool> DeleteArticle(long articleId);
         Task<IEnumerable<GetArticleBYCategoryDTO>> GetArticleBYCategoryID(long id);

@@ -75,8 +75,8 @@ namespace ApplicationCore.Services
                 // ایجاد ارتباط بین مقاله و کلمات کلیدی
                 var articleKeywords = existingKeywords.Select(keyword => new ArticleKeyword
                 {
-                    ArticleId = newArticle.Id,
-                    KeywordId = keyword.Id
+                    ArticlesId = newArticle.Id,
+                    KeywordsId = keyword.Id
                 }).ToList();
 
                 await uow.Repository<ArticleKeyword>().AddRangeAsync(articleKeywords);
@@ -127,65 +127,99 @@ namespace ApplicationCore.Services
             return await uow.GetArticleBYKeywordID(id);
         }
         // بروزرسانی مقاله ها
-        //Error dare bayad hal besh - Akbari(hal mikonm)
-        public async Task<bool> UpdateArticleAsync(ArticleDTO articlesDTO)
+        
+        public async Task<bool> UpdateArticleAsync(ArticleDTO articlesDTO,long articleID)
         {
             try
             {
-                // بررسی اینکه تمام CategoryIds در دیتابیس وجود داشته باشند
-                var existingCategories = await uow.Repository<Categories>()
-                    .FindAsync(c => articlesDTO.CategoryIds.Contains(c.Id));
+                // پیدا کردن مقاله موجود
+                var existingArticle = await uow.Repository<Articles>().GetByIdAsync(articleID);
+                if (existingArticle == null)
+                {
+                    return NotOKResponse(false, "ArticleNotFound", "مقاله‌ای با این شناسه یافت نشد.");
+                }
 
-                if (existingCategories.Count() != articlesDTO.CategoryIds.Count)
+                // به‌روزرسانی اطلاعات مقاله
+                existingArticle.Title = articlesDTO.Title;
+                existingArticle.Description = articlesDTO.Description;
+                existingArticle.RegDate = articlesDTO.RegDate;
+                existingArticle.posterImage = articlesDTO.PosterImage;
+                existingArticle.isDelete = articlesDTO.IsDelete;
+                existingArticle.LikeCount = articlesDTO.LikeCount;
+                existingArticle.ViewCount = articlesDTO.ViewCount;
+
+                // به‌روزرسانی ارتباطات مقاله با دسته‌بندی‌ها
+                var existingArticlePermissions = await uow.Repository<ArticlesPermission>()
+                    .FindAsync(ap => ap.ArticlesId == articleID);
+                foreach (var permission in existingArticlePermissions)
+                {
+                    await uow.Repository<ArticlesPermission>().DeleteAsync(permission.Id);
+                }
+
+                var existingCategories = new List<Categories>();
+                foreach (var categoryId in articlesDTO.CategoryIds)
+                {
+                    var category = await uow.Repository<Categories>().GetByIdAsync(categoryId);
+                    if (category != null)
+                    {
+                        existingCategories.Add(category);
+                    }
+                }
+                if (existingCategories.Count != articlesDTO.CategoryIds.Count)
                 {
                     return NotOKResponse(false, "CategoryNotFound", "برخی از دسته‌بندی‌ها وجود ندارند.");
                 }
 
-                // بررسی اینکه تمام KeywordIds در دیتابیس وجود داشته باشند
-                var existingKeywords = await uow.Repository<Keyword>()
-                    .FindAsync(k => articlesDTO.KeywordIds.Contains(k.Id));
-
-                if (existingKeywords.Count() != articlesDTO.KeywordIds.Count)
-                {
-                    return NotOKResponse(false, "KeywordNotFound", "برخی از کلمات کلیدی وجود ندارند.");
-                }
-
-                // نقشه‌برداری از ArticleDTO به Articles
-                var newArticle = mapper.Map<Articles>(articlesDTO);
-                var result = await uow.Repository<Articles>().UpdateAsync(newArticle);
-
-                // ایجاد ارتباط بین مقاله و دسته‌بندی‌ها (ArticlePermissions)
                 var articlePermissions = existingCategories.Select(category => new ArticlesPermission
                 {
-                    ArticlesId = newArticle.Id,
+                    ArticlesId = articleID,
                     CategoriesId = category.Id
                 }).ToList();
-
                 foreach (var articlePermission in articlePermissions)
                 {
                     await uow.Repository<ArticlesPermission>().AddAsync(articlePermission);
                 }
 
-                // ایجاد ارتباط بین مقاله و کلمات کلیدی
+                // به‌روزرسانی ارتباطات مقاله با کلمات کلیدی
+                var existingArticleKeywords = await uow.Repository<ArticleKeyword>()
+                    .FindAsync(ak => ak.ArticlesId == articleID);
+                foreach (var keyword in existingArticleKeywords)
+                {
+                    await uow.Repository<ArticleKeyword>().DeleteAsync(keyword.ID);
+                }
+
+                var existingKeywords = new List<Keyword>();
+                foreach (var keywordId in articlesDTO.KeywordIds)
+                {
+                    var keyword = await uow.Repository<Keyword>().GetByIdAsync(keywordId);
+                    if (keyword != null)
+                    {
+                        existingKeywords.Add(keyword);
+                    }
+                }
+                if (existingKeywords.Count != articlesDTO.KeywordIds.Count)
+                {
+                    return NotOKResponse(false, "KeywordNotFound", "برخی از کلمات کلیدی وجود ندارند.");
+                }
+
                 var articleKeywords = existingKeywords.Select(keyword => new ArticleKeyword
                 {
-                    ArticleId = newArticle.Id,
-                    KeywordId = keyword.Id
+                    ArticlesId = articleID,
+                    KeywordsId = keyword.Id
                 }).ToList();
-
                 foreach (var articleKeyword in articleKeywords)
                 {
                     await uow.Repository<ArticleKeyword>().AddAsync(articleKeyword);
                 }
 
-                // ذخیره تغییرات نهایی در دیتابیس
+                // ذخیره تغییرات نهایی
                 await uow.Save();
+
                 return OKResponse(true, "Success", "مقاله با موفقیت به‌روزرسانی شد.");
             }
             catch (Exception ex)
             {
-                // لاگ خطا برای خطایابی بهتر
-                // Log the exception here using your logging framework
+                // ثبت خطا برای خطایابی بهتر
                 return NotOKResponse(false, "Error", "خطا در هنگام به‌روزرسانی مقاله رخ داد.");
             }
         }

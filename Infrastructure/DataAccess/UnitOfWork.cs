@@ -45,8 +45,8 @@ namespace Infrastructure.DataAccess
         public async Task<IEnumerable<GetArticleBYKeywordDTO>> GetArticleBYKeywordID(long id)
         {
             var result = (from article in db.Articles
-                          join Ak in db.ArticleKeywords on article.Id equals Ak.ArticleId
-                          join Key in db.Keywords on Ak.KeywordId equals Key.Id
+                          join Ak in db.ArticleKeywords on article.Id equals Ak.ArticlesId
+                          join Key in db.Keywords on Ak.KeywordsId equals Key.Id
                           where Key.Id == id
                           select new GetArticleBYKeywordDTO
                           {

@@ -43,27 +43,27 @@ namespace Infrastructure.DataAccess
 
             //ArticleKeyword 
             modelBuilder.Entity<ArticleKeyword>()
-                .HasKey(ak => new { ak.ArticleId, ak.KeywordId });
+                .HasKey(ak => ak.ID); // فقط ID به عنوان کلید اصلی
 
             modelBuilder.Entity<ArticleKeyword>()
                 .HasOne(ak => ak.Article)
                 .WithMany(a => a.ArticleKeywords)
-                .HasForeignKey(ak => ak.ArticleId);
+                .HasForeignKey(ak => ak.ArticlesId);
 
             modelBuilder.Entity<ArticleKeyword>()
                 .HasOne(ak => ak.Keyword)
                 .WithMany(k => k.ArticleKeywords)
-                .HasForeignKey(ak => ak.KeywordId);
+                .HasForeignKey(ak => ak.KeywordsId);
 
 
             //BooksPermission
             modelBuilder.Entity<BooksPermissions>()
-                .HasKey(bp=>bp.Id);
+                .HasKey(bp => bp.Id);
 
             modelBuilder.Entity<BooksPermissions>()
-                .HasOne(bp=>bp.Books)
-                .WithMany(bp=>bp.BooksPermissions)
-                .HasForeignKey(bp=>bp.BookId);
+                .HasOne(bp => bp.Books)
+                .WithMany(bp => bp.BooksPermissions)
+                .HasForeignKey(bp => bp.BookId);
 
             modelBuilder.Entity<BooksPermissions>()
                 .HasOne(bp => bp.Category)
