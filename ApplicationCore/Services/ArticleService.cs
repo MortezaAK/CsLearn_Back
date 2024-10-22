@@ -107,10 +107,55 @@ namespace ApplicationCore.Services
             }
         }
         //نمایش تمامی مقاله ها
-        public async Task<IEnumerable<Articles>> GetAllArticle()
+        //public async Task<IEnumerable<ArticleByDTO>> GetAllArticle()
+        //{
+        //    var articles = await uow.Repository<Articles>().GetAllAsync();
+
+        //    return articles.Select(article => new ArticleByDTO
+        //    {
+        //        Id = article.Id,
+        //        Title = article.Title,
+        //        CategoryIds = article.ArticlesPermissions?.Select(ap => new CategoryInOtherTableDTO
+        //        {
+        //            Id = ap.CategoriesId,
+        //            Name = ap.Category?.Name // بررسی null برای Category
+        //        }).ToList() ?? new List<CategoryInOtherTableDTO>(), // اگر ArticlesPermissions نال باشد، یک لیست خالی برمی‌گرداند
+        //        KeywordIds = article.ArticleKeywords?.Select(ak => new KeywordDTO
+        //        {
+        //            Id = ak.KeywordsId,
+        //            KeywordText = ak.Keyword?.KeywordText // بررسی null برای Keyword
+        //        }).ToList() ?? new List<KeywordDTO>() // اگر ArticleKeywords نال باشد، یک لیست خالی برمی‌گرداند
+        //    }).ToList(); // تبدیل به لیست
+        //}
+
+        public async Task<IEnumerable<ArticleByDTO>> GetAllArticle()
         {
-            return await uow.Repository<Articles>().GetAllAsync();
+            var articles = await uow.Repository<Articles>()
+        .GetAllWithIncludesAsync("ArticlesPermissions.Category", "ArticleKeywords.Keyword"); // شامل وابستگی‌ها
+
+
+            return articles.Select(article => new ArticleByDTO
+            {
+                Id = article.Id,
+                Title = article.Title,
+                CategoryIds = article.ArticlesPermissions?.Select(ap => new CategoryInOtherTableDTO
+                {
+                    Id = ap.CategoriesId,
+                    Name = ap.Category?.Name // بررسی null برای Category
+                }).ToList() ?? new List<CategoryInOtherTableDTO>(),
+                KeywordIds = article.ArticleKeywords?.Select(ak => new KeywordDTO
+                {
+                    Id = ak.KeywordsId,
+                    KeywordText = ak.Keyword?.KeywordText // بررسی null برای Keyword
+                }).ToList() ?? new List<KeywordDTO>()
+            }).ToList();
+
         }
+
+
+
+
+
         //نمایش مقاله ها براساس CategoryID
         public async Task<IEnumerable<GetArticleBYCategoryDTO>> GetArticleBYCategoryID(long id)
         {
@@ -127,8 +172,8 @@ namespace ApplicationCore.Services
             return await uow.GetArticleBYKeywordID(id);
         }
         // بروزرسانی مقاله ها
-        
-        public async Task<bool> UpdateArticleAsync(ArticleDTO articlesDTO,long articleID)
+
+        public async Task<bool> UpdateArticleAsync(ArticleDTO articlesDTO, long articleID)
         {
             try
             {

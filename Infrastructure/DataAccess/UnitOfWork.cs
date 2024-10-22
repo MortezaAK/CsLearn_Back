@@ -2,6 +2,7 @@
 using ApplicationCore.Interfaces.DataAccess;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace Infrastructure.DataAccess
             _accessor = accessor;
             PrivateRepository = new Dictionary<Type, object>();
         }
+
+
         //کوئری براساس نمایش مقاله ها براساس CategoryID
         public async Task<IEnumerable<GetArticleBYCategoryDTO>> GetArticleBYCategoryID(long id)
         {

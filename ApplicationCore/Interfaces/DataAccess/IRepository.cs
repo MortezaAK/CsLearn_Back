@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ApplicationCore.Interfaces.DataAccess
 {
@@ -18,5 +20,8 @@ namespace ApplicationCore.Interfaces.DataAccess
         Task<IEnumerable<TEntity>> FindAsync(Func<TEntity, bool> predicate);
         Task<bool> DeleteRangeAsync(IEnumerable<TEntity> entities);
         Task<bool> AddRangeAsync(IEnumerable<TEntity> entities);
+        Task<IEnumerable<TEntity>> GetAllWithIncludesAsync(params Expression<Func<TEntity, object>>[] includes);
+        Task<IEnumerable<TEntity>> GetAllWithIncludesAsync(params string[] includes);
+        IQueryable<TEntity> Include(Func<IQueryable<TEntity>, IQueryable<TEntity>> include);
     }
 }

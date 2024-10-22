@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
@@ -81,5 +82,33 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     public async Task<IEnumerable<TEntity>> FindAsync(Func<TEntity, bool> predicate)
     {
         return await Task.Run(() => _dbSet.Where(predicate).ToList());
+    }
+
+    public async Task<IEnumerable<TEntity>> GetAllWithIncludesAsync(params Expression<Func<TEntity, object>>[] includes)
+    {
+        IQueryable<TEntity> query = _dbSet;
+
+        // اعمال Include برای هر یک از روابط
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
+        return await query.ToListAsync();
+    }
+    public async Task<IEnumerable<TEntity>> GetAllWithIncludesAsync(params string[] includes)
+    {
+        IQueryable<TEntity> query = _dbSet;
+
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
+        return await query.ToListAsync();
+    }
+    public IQueryable<TEntity> Include(Func<IQueryable<TEntity>, IQueryable<TEntity>> include)
+    {
+        return include(_dbSet);
     }
 }

@@ -10,7 +10,7 @@ namespace ApplicationCore.Interfaces
 {
     public interface IArticle
     {
-        Task<IEnumerable<Articles>> GetAllArticle();
+        Task<IEnumerable<ArticleByDTO>> GetAllArticle();
         Task<bool> AddArticleAsync(ArticleDTO articleDto);
         Task<bool> UpdateArticleAsync(ArticleDTO articlesDTO, long articleID);
         Task<Articles> GetArticleById(long id);

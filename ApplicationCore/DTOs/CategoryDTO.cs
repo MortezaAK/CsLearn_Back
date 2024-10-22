@@ -8,6 +8,7 @@ namespace ApplicationCore.DTOs
 {
     public class CategoryDTO
     {
+        public long Id { get; set; }
         public string Name { get; set; }
         public int GroupId { get; set; }
         public int isDelete { get; set; }

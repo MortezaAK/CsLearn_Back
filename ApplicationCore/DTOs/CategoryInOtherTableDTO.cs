@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.DTOs
 {
-    public class KeywordDTO
+    public class CategoryInOtherTableDTO
     {
         public long Id { get; set; }
-        public string KeywordText { get; set; }
+        public string Name { get; set; }
     }
 }

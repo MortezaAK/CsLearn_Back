@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.DTOs
 {
-    public class ArticleDTO
+    public class ArticleByDTO
     {
-      
+        public long Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime RegDate { get; set; }
         public string PosterImage { get; set; }
-        public List<long> CategoryIds { get; set; }
-        public List<long> KeywordIds { get; set; }
+        public List<CategoryInOtherTableDTO> CategoryIds { get; set; }
+        public List<KeywordDTO> KeywordIds { get; set; }
         public int IsDelete { get; set; }
         public int LikeCount { get; set; }
         public int ViewCount { get; set; }
     }
-
 }
